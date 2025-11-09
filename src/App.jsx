@@ -1,15 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import ContactForm from './Components/Contact'
+import ContactForm from './Components/Contact.jsx'
+import Home from './Components/Home'
+import { BrowserRouter, Route, Routes } from'react-router-dom'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
    <>
-     <ContactForm/>
+    <BrowserRouter>
+    <Routes>
+       <Route path="/ContactForm" element ={<ContactForm/>}></Route> 
+       <Route path="/" element ={<Home/>}></Route>
+    </Routes>    
+    </BrowserRouter>
    </>
   )
 }

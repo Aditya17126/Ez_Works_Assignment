@@ -1,32 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Css/contact.css";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    message: ""
+    message: "",
   });
 
   const [status, setStatus] = useState("");
 
-  // handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Validation
     if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       setStatus("❌ All fields are required");
       return;
     }
 
-    // ✅ Email validation
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(formData.email)) {
       setStatus("❌ Enter a valid email");
@@ -34,63 +31,74 @@ function ContactForm() {
     }
 
     try {
-      const res = await axios.post(
-        "https://vernanbackend.ezlab.in/api/contact-us/",
-        formData
-      );
-
+      const res = await axios.post("https://vernanbackend.ezlab.in/api/contact-us/", formData);
       if (res.status === 201) {
         setStatus("✅ Form Submitted");
-        setFormData({ name: "", email: "", phone: "", message: "" }); // reset form
+        setFormData({ name: "", email: "", phone: "", message: "" });
       }
     } catch (error) {
       setStatus("❌ Something went wrong");
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <div className="contact-container">
-      <h2>Contact Us</h2>
+      <div className="contact-info">
+        <p>
+          Whether you have an idea, a question, or simply want to explore how we can work together,
+          we’re just a message away. Let’s catch up over coffee. Great stories always begin with a
+          good conversation.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+      <div className="contact-form-section">
+        <h2 className="contact-heading">Join the story</h2>
+        <h3 className="contact-subheading">Ready to bring your vision to life? Let’s talk.</h3>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit} className="contact-form">
+          <input
+            type="text"
+            name="name"
+            className="form-input"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
 
-        <input
-          type="text"
-          name="phone"
-          placeholder="Enter Phone"
-          value={formData.phone}
-          onChange={handleChange}
-        />
+          <input
+            type="email"
+            name="email"
+            className="form-input"
+            placeholder="Enter Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
 
-        <textarea
-          name="message"
-          placeholder="Enter Your Message"
-          value={formData.message}
-          onChange={handleChange}
-        />
+          <input
+            type="text"
+            name="phone"
+            className="form-input"
+            placeholder="Enter Phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
 
-        <button type="submit">Submit</button>
-      </form>
+          <textarea
+            name="message"
+            className="form-textarea"
+            placeholder="Enter Your Message"
+            value={formData.message}
+            onChange={handleChange}
+          />
 
-      {/* ✅ Status Message */}
-      <p>{status}</p>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
+        </form>
+
+        <p className="form-status">{status}</p>
+      </div>
     </div>
   );
 }

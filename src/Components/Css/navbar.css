@@ -1,0 +1,27 @@
+.navbar{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-image: url('/Images/image1.png');
+    background-size: cover;
+    border: 2px solid lightgray;
+}
+
+.element{
+    margin: 10px 0;
+    list-style: none;
+    padding-right: 50px;
+}
+
+
+
+.element:hover{
+    cursor: pointer;
+    transform: scale(1.08);
+    color: red;
+    transition: all 0.3s ease-in-out;
+}
